@@ -1,4 +1,3 @@
 terraform.*
-.terraform.lock.hcl
+.terraform*
 .terraform
-s3_new.tf

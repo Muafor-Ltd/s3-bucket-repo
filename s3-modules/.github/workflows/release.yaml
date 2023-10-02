@@ -1,20 +1,27 @@
- name: release
+name: Release Workflow
 
- on: [workflow_dispatch]
+on:
+  workflow_dispatch:
 
- jobs:
+jobs:
   release:
     permissions:
       contents: write
       issues: write
       pull-requests: write
-    runs-on: ubuntu-latest
+    runs-on: Windows
     steps:
-      - name: checkout
-        uses: actions/checkout@v3
-      - name: install npm
-        run: npm install --save-dev semantic-release
-      - name: release
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Install npm and semantic-release
+        run: |
+          npm install --save-dev semantic-release
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Execute Semantic Release
         run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
